@@ -27,3 +27,7 @@
     color: grey;
     cursor: pointer;
 }
+.sidebar .recent{
+    display: flex;
+    flex-direction: column;
+}
