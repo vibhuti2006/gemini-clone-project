@@ -11,6 +11,7 @@ import plus_icon from './plus_icon.png'
 import question_icon from './question_icon.png'
 import send_icon from './send_icon.png'
 import settings_icon from './settings_icon.png'
+import user_icon from './user_icon.png'
 
 
 export const assets={
@@ -26,5 +27,6 @@ export const assets={
     plus_icon,
     question_icon,
     send_icon,
-    settings_icon
+    settings_icon,
+    user_icon
 }
