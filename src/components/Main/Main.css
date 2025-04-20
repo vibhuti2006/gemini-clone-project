@@ -1,3 +1,7 @@
+
+/* completely new whole */
+
+
 .main{
     flex: 1;
     min-height: 100vh;
@@ -117,4 +121,221 @@
     text-align: center;
     font-weight: 300;
     color: #585858;
+} 
+
+/* ---- ADDED CSS FOR RESPONSE DIV ---- */
+
+/* Chat container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
 }
+
+/* User message styling */
+.user-message {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.user-message-container {
+    background-color: #f0f4f9;
+    border-radius: 18px 18px 0 18px;
+    padding: 14px 18px;
+    max-width: 80%;
+    color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Bot message styling */
+.bot-message {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.gemini-response-container {
+    display: flex;
+    padding: 16px;
+    border-radius: 18px 18px 18px 0;
+    /* background-color: #ffffff; */
+    max-width: 80%;
+    min-width: 50%;
+    align-items: flex-start;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Gemini avatar for responses */
+.gemini-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 12px;
+    /* background: linear-gradient(16deg, #4b90ff, #ff5546); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.gemini-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Gemini response content */
+.gemini-content {
+    flex: 1;
+}
+
+/* Response text styling */
+.response-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #1b1b1b;
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+/* Gemini loading animation */
+.gemini-indicator {
+    display: flex;
+    align-items: center;
+    height: 24px;
+}
+
+.gemini-spinner {
+    display: flex;
+    align-items: center;
+}
+
+.gemini-spinner .dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 3px;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: gemini-pulse 1.5s infinite ease-in-out;
+}
+
+.gemini-spinner .dot:nth-child(1) {
+    animation-delay: 0s;
+    background-color: #4b90ff; /* Matching your gradient blue */
+}
+
+.gemini-spinner .dot:nth-child(2) {
+    animation-delay: 0.2s;
+    background-color: #ff5546; /* Matching your gradient red */
+}
+
+.gemini-spinner .dot:nth-child(3) {
+    animation-delay: 0.4s;
+    background-color: #8f65ff; /* A complementary purple */
+}
+
+@keyframes gemini-pulse {
+    0%, 100% {
+        transform: scale(0.8);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .user-message-container,
+    .gemini-response-container {
+        max-width: 90%;
+    }
+    
+    .main .greet {
+        font-size: 40px;
+    }
+}
+
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  
+  .custom-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%; /* Show above icon */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    font-size: 16px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  
+  .tooltip-container:hover .custom-tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* Optional: add a little arrow */
+  .custom-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+  }
+
+  #gallery-add-icon {
+    cursor: not-allowed;
+  }
+  
+
+
+  /* updation in loader */
+  .loader{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .loader hr{
+    border-radius: 4px;
+    border: none;
+    background-color: #f6f7f8;
+    background: linear-gradient(to right, #9ed7ff, #ffffff, #9ed7ff);
+    background-size: 800px 50px;
+    height: 20px;
+    animation: loader 3s infinite linear;
+  }
+  @keyframes loader {
+    0%{
+        background-position: -800px 0px;
+    }
+    100%{
+        background-position: 800px 0px;
+    }
+  }

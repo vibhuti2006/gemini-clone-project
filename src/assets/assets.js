@@ -2,6 +2,7 @@ import code_icon from './code_icon.png'
 import compass_icon from './compass_icon.png'
 import gallery_add_icon from './gallery_add_icon.png'
 import gemini_icon from './gemini_icon.png'
+import gemini_icon_new from './gemini_icon_new.webp'
 import hamburger_menu from './hamburger_menu.png'
 import history_icon from './history_icon.png'
 import light_bulb from './light_bulb.png'
@@ -28,5 +29,6 @@ export const assets={
     question_icon,
     send_icon,
     settings_icon,
-    user_icon
+    user_icon,
+    gemini_icon_new
 }

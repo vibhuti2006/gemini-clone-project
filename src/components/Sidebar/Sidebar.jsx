@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState , useContext } from 'react'
+import { Context } from "../../Context/Context";
 import './Sidebar.css'
 import { assets } from '../../assets/assets'
 
@@ -6,13 +7,29 @@ const Sidebar = () => {
 
     const[extended, setExtended] = useState(false);
 
+      const {inputValue,
+        setInputValue,
+        inChat,
+        setInChat,
+        messages,
+        setMessages,
+        isLoading,
+        setIsLoading} = useContext(Context);
+
+    function handleNewChat() {
+        setInputValue("");
+        setInChat(false);
+        setMessages([]);
+        setIsLoading(false);
+    }
+
   return (
     <div className='sidebar'>
         <div className="top">
             <img onClick={()=>setExtended(prev=>!prev)} className='menu' src={assets.hamburger_menu} alt="" />
-            <div className="new-chat">
+            <div onClick={handleNewChat} className="new-chat">
                 <img src={assets.plus_icon} alt="" />
-                {extended ? <p>New Chat</p> : null}
+                {extended ? <p> New Chat </p> : null}
             </div>
 
             {extended ?
