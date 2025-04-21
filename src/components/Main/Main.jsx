@@ -2,6 +2,7 @@ import React, { useState  , useContext} from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../Context/Context";
+import Typewriter from "./Typerwriter";
 
 const Main = () => {
 
@@ -28,7 +29,7 @@ const Main = () => {
     setIsLoading(true);
     setInputValue(""); // Clear input field
 
-    const API_KEY = "AIzaSyDCK86CWhdwJouK-S7OTrmyzyUpnki1U20";
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
     const API_URL =
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-thinking-exp-01-21:generateContent";
 
@@ -43,7 +44,7 @@ const Main = () => {
           parts: [
             { text: userMessage },
             {
-              text: "Give me just plain structured text dont bold italic underline etc and dont mention it anywhere in the reeponse",
+              text: "Give me just plain structured text dont bold italic underline etc and dont mention it anywhere in the response",
             },
           ],
         },
@@ -158,7 +159,9 @@ const Main = () => {
               >
                 {message.type === "user" ? (
                   <div className="user-message-container">
+
                     <p className="response-text">{message.content}</p>
+
                   </div>
                 ) : (
                   <div className="gemini-response-container">
@@ -169,7 +172,8 @@ const Main = () => {
                       />
                     </div>
                     <div className="gemini-content">
-                      <p className="response-text">{message.content}</p>
+                      {/* <p className="response-text">{message.content}</p> */}
+                      <Typewriter text={message.content} />
                     </div>
                   </div>
                 )}
@@ -188,7 +192,7 @@ const Main = () => {
                   </div>
 
                   
-                  {/* <div className="gemini-content">
+                  { /* <div className="gemini-content">
                     <div className="gemini-indicator">
                       <div className="gemini-spinner">
                         <div className="dot"></div>
@@ -196,17 +200,14 @@ const Main = () => {
                         <div className="dot"></div>
                       </div>
                     </div>
-                  </div> */
+                  </div> */ }
                   
-                  // updation
+
                   <div className="loader">
                     <hr/>
                     <hr/>
                     <hr/>
-                  </div>
-                  
-                  
-                  }
+                  </div>     
                 </div>
               </div>
             )}
@@ -250,7 +251,7 @@ const Main = () => {
               </div>
 
               {inputValue.trim().length > 0 && (
-                <img src={assets.send_icon} onClick={handlePrompt} alt="" />
+                <img src={assets.send_icon} onClick={() => handlePrompt()} alt="" />
               )}
             </div>
           </div>
