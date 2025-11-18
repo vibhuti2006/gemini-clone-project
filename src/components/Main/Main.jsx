@@ -1,8 +1,10 @@
+
 import React, { useState  , useContext} from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../Context/Context";
 import Typewriter from "./Typerwriter";
+import { GoogleGenAI } from "@google/genai";
 
 const Main = () => {
 
@@ -15,30 +17,30 @@ const Main = () => {
     isLoading,
     setIsLoading} = useContext(Context);
 
-  function handlePrompt(customPrompt) {
-    const prompt = customPrompt || inputValue.trim();
-    if (prompt === "") return;
 
-    const userMessage = prompt;
-    const updatedMessages = [
-      ...messages,
-      { type: "user", content: userMessage },
-    ];
-    setMessages(updatedMessages);
-    setInChat(true);
-    setIsLoading(true);
-    setInputValue(""); // Clear input field
+async function handlePrompt(customPrompt) {
+  const prompt = customPrompt || inputValue.trim();
+  if (prompt === "") return;
 
-    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-    const API_URL =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-thinking-exp-01-21:generateContent";
+  const userMessage = prompt;
 
-    const headers = {
-      "Content-Type": "application/json",
-      "x-goog-api-key": API_KEY,
-    };
+  const updatedMessages = [
+    ...messages,
+    { type: "user", content: userMessage },
+  ];
 
-    const requestBody = {
+  setMessages(updatedMessages);
+  setInChat(true);
+  setIsLoading(true);
+  setInputValue("");
+
+  try {
+    const ai = new GoogleGenAI({
+      apiKey: import.meta.env.VITE_GEMINI_API_KEY,
+    });
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
       contents: [
         {
           parts: [
@@ -49,34 +51,26 @@ const Main = () => {
           ],
         },
       ],
-    };
+    });
 
-    fetch(API_URL, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const output =
-          data.candidates?.[0]?.content?.parts?.[0]?.text ||
-          "I couldn't generate a response. Please try again.";
+    const output =
+      response?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "I couldn't generate a response. Please try again.";
 
-        setMessages([...updatedMessages, { type: "bot", content: output }]);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setMessages([
-          ...updatedMessages,
-          {
-            type: "bot",
-            content: "Sorry, I encountered an error. Please try again.",
-          },
-        ]);
-        setIsLoading(false);
-      });
+    setMessages([...updatedMessages, { type: "bot", content: output }]);
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    setMessages([
+      ...updatedMessages,
+      {
+        type: "bot",
+        content: "Sorry, I encountered an error. Please try again.",
+      },
+    ]);
   }
+
+  setIsLoading(false);
+}
 
   // Function to handle card selection
   const handleCardClick = (prompt) => {
@@ -265,3 +259,5 @@ const Main = () => {
 };
 
 export default Main;
+
+
